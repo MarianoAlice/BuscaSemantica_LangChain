@@ -1,2 +1,3 @@
-# BuscaSemantica_LangChain
-Desafio 1 - MBA em IA
+# Desafio MBA Engenharia de Software com IA - Full Cycle
+
+Descreva abaixo como executar a sua solução.
