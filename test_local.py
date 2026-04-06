@@ -4,7 +4,7 @@ Teste simples do modelo local de embeddings
 """
 import sys
 from pypdf import PdfReader
-from langchain_text_splitters import CharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 
 def test_local_model():
@@ -17,10 +17,10 @@ def test_local_model():
     print(f"✅ PDF lido: {len(text)} caracteres")
     
     # 2. Chunking
-    splitter = CharacterTextSplitter(
+    splitter = RecursiveCharacterTextSplitter(
         chunk_size=500,
         chunk_overlap=50,
-        separator="\n"
+        separators=["\n"]
     )
     chunks = splitter.split_text(text)
     print(f"✅ Chunks criados: {len(chunks)}")

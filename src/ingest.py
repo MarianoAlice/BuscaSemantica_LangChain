@@ -2,7 +2,7 @@ import os
 import sys
 from dotenv import load_dotenv
 from pypdf import PdfReader
-from langchain_text_splitters import CharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores.pgvector import PGVector
 
@@ -20,10 +20,10 @@ def ingest_pdf(pdf_path: str):
         return
 
     # 2. Chunking
-    splitter = CharacterTextSplitter(
+    splitter = RecursiveCharacterTextSplitter(
         chunk_size=1000,
         chunk_overlap=150,
-        separator="\n"
+        separators=["\n"]
     )
     chunks = splitter.split_text(text)
     print(f"[INFO] {len(chunks)} chunks gerados.")
@@ -37,7 +37,7 @@ def ingest_pdf(pdf_path: str):
 
     # 4. Armazenar no banco (pgvector)
     collection_name = os.path.basename(pdf_path)
-    db = PGVector.from_texts(
+    PGVector.from_texts(
         texts=chunks,
         embedding=embeddings,
         collection_name=collection_name,

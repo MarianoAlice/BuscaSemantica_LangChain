@@ -14,12 +14,12 @@ Este documento serve como roteiro para a construção ordenada do sistema de ing
 
 ### 2. Implementar o script de ingestão (`src/ingest.py`)
 - Ler um arquivo PDF e extrair seu texto.
-- Dividir o texto em chunks de 1000 caracteres com overlap de 150.
-- Gerar embeddings para cada chunk usando o modelo `text-embedding-3-small` da OpenAI.
+- Dividir o texto em chunks de 1000 caracteres com overlap de 150 usando `RecursiveCharacterTextSplitter`.
+- Gerar embeddings para cada chunk usando o modelo local HuggingFace (`sentence-transformers/all-MiniLM-L6-v2`).
 - Salvar os vetores e metadados no banco PostgreSQL com pgVector.
 - Validar a persistência dos dados.
 
-### 3. Implementar o script de busca/chat (`src/search.py`)
+### 3. Implementar o script de chat interativo (`src/chat.py`)
 - Receber perguntas do usuário via CLI.
 - Gerar embedding da pergunta.
 - Buscar os 10 chunks mais relevantes (k=10) no banco vetorial.
@@ -31,7 +31,7 @@ Este documento serve como roteiro para a construção ordenada do sistema de ing
 - Instruções para subir o banco com Docker Compose.
 - Como configurar a API Key da OpenAI.
 - Como executar a ingestão de PDFs.
-- Como rodar o chat/busca via terminal.
+- Como rodar o chat via terminal (`src/chat.py`).
 - Exemplos de comandos.
 
 ---
